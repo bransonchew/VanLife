@@ -1,9 +1,7 @@
 export default function Footer() {
     return (
-        <>
-            <footer>
-
-            </footer>
-        </>
+        <footer>
+            © 2023 #VANLIFE
+        </footer>
     )
 }
