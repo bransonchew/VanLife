@@ -13,7 +13,7 @@ export default function HostLayout() {
         <>
             <nav className="host-nav">
                 <NavLink
-                    to="/host"
+                    to="."
                     end
                     style={ ({isActive}) => isActive ? activeStyle : null }
                 >
@@ -28,12 +28,18 @@ export default function HostLayout() {
                 </NavLink>
 
                 <NavLink
+                    to="vans"
+                    style={ ({isActive}) => isActive ? activeStyle : null }
+                >
+                    Vans
+                </NavLink>
+
+                <NavLink
                     to="reviews"
                     style={ ({isActive}) => isActive ? activeStyle : null }
                 >
                     Reviews
                 </NavLink>
-
             </nav>
             <Outlet/>
         </>
