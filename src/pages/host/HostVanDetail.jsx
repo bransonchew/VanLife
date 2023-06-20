@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { NavLink, useParams, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useParams } from 'react-router-dom'
 
 
 export default function HostVanDetail() {
@@ -15,6 +15,8 @@ export default function HostVanDetail() {
         fetch(`/api/host/vans/${ params.id }`)
             .then(response => response.json())
             .then(data => setVan(data.vans))
+
+        console.log('useEffect ran!')
 
     }, [])
 
@@ -43,9 +45,9 @@ export default function HostVanDetail() {
                     </div>
                 </div>
 
-                <nav>
+                <nav className="host-van-detail-nav">
                     <NavLink
-                        to="."
+                        to=""
                         end
                         style={ ({isActive}) => isActive ? activeStyle : null }
                     >
@@ -67,7 +69,7 @@ export default function HostVanDetail() {
                     </NavLink>
                 </nav>
 
-                <Outlet/>
+                <Outlet context={ van }/>
             </div>
 
         </section>
