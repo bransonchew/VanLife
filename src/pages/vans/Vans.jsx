@@ -38,13 +38,27 @@ export default function Vans() {
             </div>
     ))
 
+    function handleFilter(key, val) {
+
+        setSearchParams(prev => {
+
+            if (val) {
+                prev.set(key, val)
+            } else {
+                prev.delete(key)
+            }
+
+            return prev
+        })
+    }
+
     return (
         <div className="van-list-container">
             <h1>Explore our van options</h1>
             <div className="van-list-filter-buttons">
 
                 <button
-                    onClick={ () => setSearchParams({type: 'simple'}) }
+                    onClick={ () => handleFilter('type', 'simple') }
                     className={
                         `van-type simple ${ filter === 'simple' ? 'selected' : '' }`
                     }
@@ -52,7 +66,7 @@ export default function Vans() {
                     Simple
                 </button>
                 <button
-                    onClick={ () => setSearchParams({type: 'luxury'}) }
+                    onClick={ () => handleFilter('type', 'luxury') }
                     className={
                         `van-type luxury ${ filter === 'luxury' ? 'selected' : '' }`
                     }
@@ -60,7 +74,7 @@ export default function Vans() {
                     Luxury
                 </button>
                 <button
-                    onClick={ () => setSearchParams({type: 'rugged'}) }
+                    onClick={ () => handleFilter('type', 'rugged') }
                     className={
                         `van-type rugged ${ filter === 'rugged' ? 'selected' : '' }`
                     }
@@ -69,25 +83,12 @@ export default function Vans() {
                 </button>
                 { filter &&
                     <button
-                        onClick={ () => setSearchParams({}) }
+                        onClick={ () => handleFilter('type') }
                         className={ `van-type clear-filters` }
                     >
                         Clear filters
                     </button>
                 }
-
-                {/*<NavLink to={ `?type=simple` } className={`van-type simple`}>*/ }
-                {/*    simple*/ }
-                {/*</NavLink>*/ }
-                {/*<NavLink to={ `?type=rugged` } className={`van-type rugged`}>*/ }
-                {/*    rugged*/ }
-                {/*</NavLink>*/ }
-                {/*<NavLink to={ `?type=luxury` } className={`van-type luxury`}>*/ }
-                {/*    luxury*/ }
-                {/*</NavLink>*/ }
-                {/*<NavLink to={ `?` } className={`van-type clear-filters`}>*/ }
-                {/*    clear*/ }
-                {/*</NavLink>*/ }
 
             </div>
             <div className="van-list">
