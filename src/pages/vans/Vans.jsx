@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { getVans } from '../../api'
 
 
 export default function Vans() {
 
     const [vans, setVans] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
 
     const [searchParams, setSearchParams] = useSearchParams()
 
@@ -12,10 +15,19 @@ export default function Vans() {
 
     useEffect(() => {
 
-        fetch('/api/vans')
-            .then(response => response.json())
-            .then(data => setVans(data.vans))
-            .catch(err => console.error(err))
+        async function loadVans() {
+            setLoading(true)
+            try {
+                const data = await getVans()
+                setVans(data)
+            } catch (err) {
+                setError(err)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        loadVans()
 
     }, [])
 
@@ -26,7 +38,7 @@ export default function Vans() {
             <div key={ van.id } className="van-tile">
                 <Link
                     to={ van.id }
-                    state={ {query: `?${searchParams}`, type: filter} }
+                    state={ {query: `?${ searchParams }`, type: filter} }
                 >
                     <img src={ van.imageUrl } alt={ 'van' }/>
                     <div className="van-info">
@@ -50,6 +62,14 @@ export default function Vans() {
 
             return prev
         })
+    }
+
+    if (loading) {
+        return <h1>Loading...</h1>
+    }
+
+    if (error) {
+        return <h1>There was an error: { error.message }</h1>
     }
 
     return (
