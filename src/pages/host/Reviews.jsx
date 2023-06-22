@@ -1,7 +1,11 @@
 import { useLoaderData } from 'react-router-dom'
+import { requireAuth } from '../../utils'
 
 
-export function loader() {
+export async function loader() {
+
+    await requireAuth()
+
     return 'van reviews'
 }
 

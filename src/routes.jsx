@@ -15,6 +15,7 @@ import HostVanPricing, { loader as hostVanPricingLoader } from './pages/host/Hos
 import HostVanPhotos, { loader as hostVanPhotosLoader } from './pages/host/HostVanPhotos'
 import NotFound from './pages/NotFound'
 import Error from './components/Error'
+import Login, { loader as loginLoader } from './pages/Login'
 
 
 const router = createBrowserRouter([
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <Home/>,
+            },
+            {
+                path: 'login',
+                element: <Login/>,
+                loader: loginLoader
             },
             {
                 path: 'about',
