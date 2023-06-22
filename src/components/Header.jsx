@@ -1,5 +1,6 @@
 import { Link, NavLink } from 'react-router-dom'
-import avatarIcon from "../assets/images/avatar-icon.png"
+import avatarIcon from '../assets/images/avatar-icon.png'
+
 
 export default function Header() {
 
@@ -19,19 +20,19 @@ export default function Header() {
             <nav>
                 <NavLink
                     to="/host"
-                    style={ ({isActive}) => isActive ? activeStyle : null }
+                    style={ ({ isActive }) => isActive ? activeStyle : null }
                 >
                     Host
                 </NavLink>
                 <NavLink
                     to="/about"
-                    style={ ({isActive}) => isActive ? activeStyle : null }
+                    style={ ({ isActive }) => isActive ? activeStyle : null }
                 >
                     About
                 </NavLink>
                 <NavLink
                     to="vans"
-                    style={ ({isActive}) => isActive ? activeStyle : null }
+                    style={ ({ isActive }) => isActive ? activeStyle : null }
                 >
                     Vans
                 </NavLink>

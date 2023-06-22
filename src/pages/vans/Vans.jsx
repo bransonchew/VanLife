@@ -22,7 +22,7 @@ export default function Vans() {
             <div key={ van.id } className="van-tile">
                 <Link
                     to={ van.id }
-                    state={ {query: `?${ searchParams }`, type: filter} }
+                    state={ { query: `?${ searchParams }`, type: filter } }
                 >
                     <img src={ van.imageUrl } alt={ 'van' }/>
                     <div className="van-info">

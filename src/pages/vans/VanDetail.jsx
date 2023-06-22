@@ -2,7 +2,7 @@ import { NavLink, useLoaderData, useLocation } from 'react-router-dom'
 import { getVans } from '../../api'
 
 
-export function loader({params}) {
+export function loader({ params }) {
 
     console.log(params)
 
@@ -14,7 +14,7 @@ export default function VanDetail() {
 
     const van = useLoaderData()
 
-    const {state} = useLocation()
+    const { state } = useLocation()
 
     console.log(state)
 

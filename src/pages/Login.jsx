@@ -32,6 +32,8 @@ export async function action({ request }) {
     const response = redirect(path)
     response.body = true
     throw response
+
+    // return redirect(path)
 }
 
 
