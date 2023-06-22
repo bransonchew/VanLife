@@ -22,11 +22,13 @@ export async function requireAuth(request) {
         let pathname = new URL(request.url).pathname
 
         // hacky code
-        const response = redirect(
-            `/login?message=${ message }&redirect=${ pathname }`
-        )
-        response.body = true
-        throw response
+        // const response = redirect(
+        //     `/login?message=${ message }&redirect=${ pathname }`
+        // )
+        // response.body = true
+        // throw response
+
+        throw redirect(`/login?message=${ message }&redirect=${ pathname }`)
     }
 
     return null
