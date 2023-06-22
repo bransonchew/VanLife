@@ -3,11 +3,9 @@ import { getHostVans } from '../../api'
 import { requireAuth } from '../../utils'
 
 
-export async function loader({params}) {
+export async function loader({ params, request }) {
 
-    console.log(params)
-
-    await requireAuth()
+    await requireAuth(request)
 
     return getHostVans(params.id)
 }
@@ -46,21 +44,21 @@ export default function HostVanDetail() {
                     <NavLink
                         to=""
                         end
-                        style={ ({isActive}) => isActive ? activeStyle : null }
+                        style={ ({ isActive }) => isActive ? activeStyle : null }
                     >
                         Details
                     </NavLink>
 
                     <NavLink
                         to="pricing"
-                        style={ ({isActive}) => isActive ? activeStyle : null }
+                        style={ ({ isActive }) => isActive ? activeStyle : null }
                     >
                         Pricing
                     </NavLink>
 
                     <NavLink
                         to="photos"
-                        style={ ({isActive}) => isActive ? activeStyle : null }
+                        style={ ({ isActive }) => isActive ? activeStyle : null }
                     >
                         Photos
                     </NavLink>

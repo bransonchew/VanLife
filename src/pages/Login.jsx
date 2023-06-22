@@ -1,99 +1,66 @@
-import { useState } from 'react'
-import { useLoaderData, useNavigate } from 'react-router-dom'
+import { Form, redirect, useActionData, useLoaderData, useNavigation } from 'react-router-dom'
 import { loginUser } from '../api'
 
 
 export async function loader({ request }) {
 
-    console.log(request)
-
-    const url = new URL(request.url)
-
-    const searchParams = url.searchParams
+    const searchParams = new URL(request.url).searchParams
 
     return searchParams.get('message')
 }
 
 
+export async function action({ request }) {
+
+    // Get data in form
+    const formData = await request.formData()
+    const email = formData.get('email')
+    const password = formData.get('password')
+
+    // Authenticate user & error handling
+    try {
+        const auth = await loginUser({ email, password })
+    } catch (err) {
+        return err
+    }
+
+    // Redirect user to original desired destination
+    const searchParams = new URL(request.url).searchParams
+    const path = searchParams.get('redirect') || '/host'
+
+    // hacky code
+    const response = redirect(path)
+    response.body = true
+    throw response
+}
+
+
 export default function Login() {
 
-    const [loginFormData, setLoginFormData] = useState({
-        email: '',
-        password: ''
-    })
-
-    const [status, setStatus] = useState('idle')
-    const [error, setError] = useState(null)
-
+    const navigation = useNavigation()
     const message = useLoaderData()
-
-    const navigate = useNavigate()
-
-    async function handleSubmit(e) {
-
-        e.preventDefault()
-
-        console.log(loginFormData)
-
-        setStatus('submitting')
-        setError(null)
-
-        try {
-
-            const data = await loginUser(loginFormData)
-
-            console.log('data', data)
-
-            // navigate('/host', { replace: true })
-            navigate(-1)
-
-        } catch (err) {
-
-            setError(err)
-
-            console.error('error', err)
-
-        } finally {
-
-            setStatus('idle')
-
-        }
-
-    }
-
-    function handleChange(e) {
-        const { name, value } = e.target
-        setLoginFormData(prev => ({
-            ...prev,
-            [name]: value
-        }))
-    }
+    const error = useActionData()
 
     return (
         <div className="login-container">
             <h1>Sign in to your account</h1>
             { error && <h3 className="red">{ error.message }</h3> }
             { message && <h3 className="red">{ message }</h3> }
-            <form onSubmit={ handleSubmit } className="login-form">
+            <Form method="post" replace className="login-form">
                 <input
                     name="email"
-                    onChange={ handleChange }
                     type="email"
                     placeholder="Email address"
-                    value={ loginFormData.email }
                 />
                 <input
                     name="password"
-                    onChange={ handleChange }
                     type="password"
                     placeholder="Password"
-                    value={ loginFormData.password }
                 />
-                <button disabled={ status === 'submitting' }>
-                    { status === 'submitting' ? 'Logging in...' : 'Log in' }
+                <button disabled={ navigation.state === 'submitting' }>
+                    { navigation.state === 'submitting' ? 'Logging in...' : 'Log in' }
                 </button>
-            </form>
+            </Form>
         </div>
     )
-
 }

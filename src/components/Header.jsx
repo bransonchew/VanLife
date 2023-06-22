@@ -3,6 +3,10 @@ import avatarIcon from "../assets/images/avatar-icon.png"
 
 export default function Header() {
 
+    function logout() {
+        localStorage.removeItem('loggedIn')
+    }
+
     const activeStyle = {
         fontWeight: 'bold',
         textDecoration: 'underline',
@@ -38,6 +42,7 @@ export default function Header() {
                         className="login-icon"
                     />
                 </Link>
+                <button onClick={ logout }>logout</button>
             </nav>
         </header>
     )

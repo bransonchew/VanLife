@@ -2,9 +2,9 @@ import { requireAuth } from '../../utils'
 import { useLoaderData } from 'react-router-dom'
 
 
-export async function loader() {
+export async function loader({ request }) {
 
-    await requireAuth()
+    await requireAuth(request)
 
     return 'Dashboard'
 }
