@@ -1,27 +1,22 @@
-import { useEffect, useState } from 'react'
-import { NavLink, useLocation, useParams } from 'react-router-dom'
+import { NavLink, useLoaderData, useLocation } from 'react-router-dom'
+import { getVans } from '../../api'
 
 
-export default function Van() {
+export function loader({params}) {
 
-    const [van, setVan] = useState({})
+    console.log(params)
 
-    const params = useParams()
+    return getVans(params.id)
+}
+
+
+export default function VanDetail() {
+
+    const van = useLoaderData()
 
     const {state} = useLocation()
 
     console.log(state)
-
-    console.log(params)
-
-    useEffect(() => {
-
-        fetch(`/api/vans/${ params.id }`)
-            .then(response => response.json())
-            .then(data => setVan(data.vans))
-            .catch(err => console.error(err))
-
-    }, [params])
 
     return (
         <>

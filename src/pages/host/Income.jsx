@@ -1,3 +1,8 @@
+export function loader() {
+    return 'van income'
+}
+
+
 export default function Income() {
     return (
         <>

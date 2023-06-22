@@ -1,3 +1,8 @@
+export function loader() {
+    return 'Dashboard'
+}
+
+
 export default function Dashboard() {
     return (
         <>

@@ -1,6 +1,11 @@
 import { useOutletContext } from 'react-router-dom'
 
 
+export function loader() {
+    return 'van pricing'
+}
+
+
 export default function HostVanPricing() {
 
     const van = useOutletContext()
