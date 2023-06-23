@@ -3,7 +3,7 @@ import { Await, defer, Link, useLoaderData, useSearchParams } from 'react-router
 import { getVans } from '../../api'
 
 
-export function loader() {
+export async function loader() {
     return defer({ vans: getVans() })
 }
 
