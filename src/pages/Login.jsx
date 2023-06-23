@@ -12,17 +12,17 @@ export async function loader({ request }) {
 
 export async function action({ request }) {
 
-    // Get data in form
     const formData = await request.formData()
     const email = formData.get('email')
     const password = formData.get('password')
 
-    // Authenticate user & error handling
     try {
         const auth = await loginUser({ email, password })
     } catch (err) {
         return err
     }
+
+    localStorage.setItem('loggedIn', 'true')
 
     // Redirect user to original desired destination
     const searchParams = new URL(request.url).searchParams

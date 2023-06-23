@@ -4,6 +4,6 @@ import App from './App'
 import './server'
 
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-    <App/>
-)
+ReactDOM
+    .createRoot(document.getElementById('root'))
+    .render(<App/>)

@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <Layout/>,
-        errorElement: <Error/>,
+        // errorElement: <Error/>,
         children: [
             {
                 index: true,
@@ -41,17 +41,19 @@ const router = createBrowserRouter([
             {
                 path: 'vans',
                 element: <Vans/>,
-                loader: vansLoader,
                 errorElement: <Error/>,
+                loader: vansLoader,
             },
             {
                 path: 'vans/:id',
                 element: <VanDetail/>,
+                errorElement: <Error/>,
                 loader: vanDetailLoader
             },
             {
                 path: 'host',
                 element: <HostLayout/>,
+                errorElement: <Error/>,
                 children: [
                     {
                         index: true,
@@ -66,6 +68,7 @@ const router = createBrowserRouter([
                     {
                         path: 'vans',
                         element: <HostVans/>,
+                        errorElement: <Error/>,
                         loader: hostVansLoader
                     },
                     {
@@ -76,6 +79,7 @@ const router = createBrowserRouter([
                     {
                         path: 'vans/:id',
                         element: <HostVanDetail/>,
+                        errorElement: <Error/>,
                         loader: hostVanDetailLoader,
                         children: [
                             {

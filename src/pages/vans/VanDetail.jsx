@@ -1,22 +1,31 @@
-import { NavLink, useLoaderData, useLocation } from 'react-router-dom'
+import { Await, defer, NavLink, useLoaderData, useLocation } from 'react-router-dom'
 import { getVans } from '../../api'
+import { Suspense } from 'react'
 
 
 export function loader({ params }) {
-
-    console.log(params)
-
-    return getVans(params.id)
+    return defer({ van: getVans(params.id) })
 }
 
 
 export default function VanDetail() {
 
-    const van = useLoaderData()
+    const data = useLoaderData()
 
     const { state } = useLocation()
 
-    console.log(state)
+    function vanElement(van) {
+        return (
+            <div className="van-detail">
+                <img src={ van.imageUrl } alt={ 'van' }/>
+                <i className={ `van-type ${ van.type } selected` }>{ van.type }</i>
+                <h2>{ van.name }</h2>
+                <p className="van-price"><span>${ van.price }</span>/day</p>
+                <p>{ van.description }</p>
+                <button className="link-button">Rent this van</button>
+            </div>
+        )
+    }
 
     return (
         <>
@@ -28,16 +37,11 @@ export default function VanDetail() {
                 ← Back to { `${ state.type || 'all' }` } vans
             </NavLink>
             <div className="van-detail-container">
-                { van ? (
-                    <div className="van-detail">
-                        <img src={ van.imageUrl } alt={ 'van' }/>
-                        <i className={ `van-type ${ van.type } selected` }>{ van.type }</i>
-                        <h2>{ van.name }</h2>
-                        <p className="van-price"><span>${ van.price }</span>/day</p>
-                        <p>{ van.description }</p>
-                        <button className="link-button">Rent this van</button>
-                    </div>
-                ) : <h2>Loading...</h2> }
+                <Suspense fallback={ <h2>Loading...</h2> }>
+                    <Await resolve={ data.van }>
+                        { vanElement }
+                    </Await>
+                </Suspense>
             </div>
         </>
     )

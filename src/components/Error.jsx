@@ -4,10 +4,11 @@ import { useEffect } from 'react'
 
 export default function Error() {
 
-    const navigate = useNavigate()
     const error = useRouteError()
 
     // hacky code
+    const navigate = useNavigate()
+
     useEffect(() => {
 
         if (error.status === 302 && error?.headers?.map?.location) {
@@ -23,8 +24,8 @@ export default function Error() {
 
     return (
         <>
-            <h1>{ error.status } - { error.statusText }</h1>
-            <h3>{ error.message }</h3>
+            <h1>Error: { error.message }</h1>
+            <pre>{ error.status } - { error.statusText }</pre>
         </>
     )
 }

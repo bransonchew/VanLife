@@ -27,7 +27,6 @@ export async function requireAuth(request) {
         // )
         // response.body = true
         // throw response
-
         throw redirect(`/login?message=${ message }&redirect=${ pathname }`)
     }
 
