@@ -14,6 +14,8 @@ export default function VanDetail() {
 
     const { state } = useLocation()
 
+    console.log(state)
+
     function vanElement(van) {
         return (
             <div className="van-detail">
@@ -30,11 +32,11 @@ export default function VanDetail() {
     return (
         <>
             <NavLink
-                to={ `..${ state.query }` }
+                to={ `..${ state?.query }` }
                 relative="path"
                 className="back-button"
             >
-                ← Back to { `${ state.type || 'all' }` } vans
+                ← Back to { `${ state?.type || 'all' }` } vans
             </NavLink>
             <div className="van-detail-container">
                 <Suspense fallback={ <h2>Loading...</h2> }>
