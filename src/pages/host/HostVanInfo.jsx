@@ -3,10 +3,8 @@ import { requireAuth } from '../../utils'
 
 
 export async function loader({ request }) {
-
     await requireAuth(request)
-
-    return 'van info'
+    return null
 }
 
 
