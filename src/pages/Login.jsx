@@ -28,12 +28,12 @@ export async function action({ request }) {
     const searchParams = new URL(request.url).searchParams
     const path = searchParams.get('redirect') || '/host'
 
+    // return redirect(path)
+
     // hacky code
     const response = redirect(path)
     response.body = true
     throw response
-
-    // return redirect(path)
 }
 
 
@@ -46,9 +46,15 @@ export default function Login() {
     return (
         <div className="login-container">
             <h1>Sign in to your account</h1>
+
             { error && <h3 className="red">{ error.message }</h3> }
             { message && <h3 className="red">{ message }</h3> }
-            <Form method="post" replace className="login-form">
+
+            <Form
+                method="post"
+                replace
+                className="login-form"
+            >
                 <input
                     name="email"
                     type="email"
@@ -60,7 +66,9 @@ export default function Login() {
                     placeholder="Password"
                 />
                 <button disabled={ navigation.state === 'submitting' }>
-                    { navigation.state === 'submitting' ? 'Logging in...' : 'Log in' }
+                    { navigation.state === 'submitting'
+                        ? 'Logging in...'
+                        : 'Log in' }
                 </button>
             </Form>
         </div>
