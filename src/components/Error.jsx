@@ -1,25 +1,22 @@
-import { useRouteError } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useNavigate, useRouteError } from 'react-router-dom'
 
 
 export default function Error() {
 
     const error = useRouteError()
 
-    // // hacky code
-    // const navigate = useNavigate()
-    //
-    // useEffect(() => {
-    //
-    //     if (error.status === 302 && error?.headers?.map?.location) {
-    //
-    //         console.log('got here')
-    //
-    //         navigate(error?.headers?.map?.location)
-    //     }
-    //
-    //     console.error(error)
-    //
-    // }, [])
+    // hacky code
+    useEffect(() => {
+
+        const navigate = useNavigate()
+
+        if (error.status === 302 && error?.headers?.map?.location) {
+            console.error(error)
+            navigate(error?.headers?.map?.location)
+        }
+
+    }, [])
 
     return (
         <>
