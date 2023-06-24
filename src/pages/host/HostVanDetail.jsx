@@ -1,5 +1,5 @@
 import { Await, defer, NavLink, Outlet, useLoaderData } from 'react-router-dom'
-import { getHostVans } from '../../api'
+import { getVan } from '../../api'
 import { requireAuth } from '../../utils'
 import { Suspense } from 'react'
 
@@ -8,7 +8,7 @@ export async function loader({ params, request }) {
 
     await requireAuth(request)
 
-    return defer({ van: getHostVans(params.id) })
+    return defer({ van: getVan(params.id) })
 }
 
 
@@ -76,8 +76,8 @@ export default function HostVanDetail() {
                 ← Back to all vans
             </NavLink>
 
-            <Suspense fallback={<h2 style={{color: 'red'}}>Loading...</h2>}>
-                <Await resolve={data.van}>
+            <Suspense fallback={ <h2>Loading...</h2> }>
+                <Await resolve={ data.van }>
                     { render }
                 </Await>
             </Suspense>
