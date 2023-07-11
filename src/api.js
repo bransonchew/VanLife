@@ -45,20 +45,38 @@ export async function getHostVans() {
 
 
 export async function loginUser(creds) {
-    const res = await fetch('/api/login',
-        { method: 'post', body: JSON.stringify(creds) }
-    )
-    const data = await res.json()
 
-    if (!res.ok) {
+    const user = {
+        id: '123',
+        email: 'b@b.com',
+        password: 'p123',
+        name: 'Bob'
+    }
+
+    if (creds.email !== user.email || creds.password !== user.password) {
         throw {
-            message: data.message,
-            statusText: res.statusText,
-            status: res.status
+            message: 'No user with those credentials found!',
+            statusText: '',
+            status: 401
         }
     }
 
-    return data
+    localStorage.setItem('loggedIn', 'true')
+
+    return user
+
+    // const res = await fetch('/api/login',
+    //     { method: 'post', body: JSON.stringify(creds) }
+    // )
+    // const data = await res.json()
+    //
+    // if (!res.ok) {
+    //     throw {
+    //         message: data.message,
+    //         statusText: res.statusText,
+    //         status: res.status
+    //     }
+    // }
 }
 
 

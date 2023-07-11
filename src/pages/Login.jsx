@@ -22,18 +22,16 @@ export async function action({ request }) {
         return err
     }
 
-    localStorage.setItem('loggedIn', 'true')
-
     // Redirect user to original desired destination
     const searchParams = new URL(request.url).searchParams
     const path = searchParams.get('redirect') || '/host'
 
-    // return redirect(path)
+    return redirect(path)
 
-    // hacky code
-    const response = redirect(path)
-    response.body = true
-    throw response
+    // // hacky code
+    // const response = redirect(path)
+    // response.body = true
+    // throw response
 }
 
 
