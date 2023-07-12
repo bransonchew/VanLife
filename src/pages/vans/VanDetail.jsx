@@ -14,8 +14,6 @@ export default function VanDetail() {
 
     const { state } = useLocation()
 
-    console.log(state)
-
     function vanElement(van) {
         return (
             <div className="van-detail">
