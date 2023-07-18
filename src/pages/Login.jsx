@@ -56,12 +56,12 @@ export default function Login() {
                 <input
                     name="email"
                     type="email"
-                    placeholder="Email address"
+                    placeholder="b@b.com"
                 />
                 <input
                     name="password"
                     type="password"
-                    placeholder="Password"
+                    placeholder="p123"
                 />
                 <button disabled={ navigation.state === 'submitting' }>
                     { navigation.state === 'submitting'
